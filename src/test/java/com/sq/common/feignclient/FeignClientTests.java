@@ -1,20 +1,15 @@
 package com.sq.common.feignclient;
 
 import com.alibaba.fastjson.JSON;
+import com.sq.common.Application;
 import com.sq.common.feign.RpcResponseResult;
-import com.sq.common.feign.springboot.EnableFeignClients;
 import okhttp3.Call;
-import okhttp3.ConnectionPool;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,35 +18,14 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
-        classes = FeignClientTests.Application.class,
+        classes = Application.class,
         webEnvironment = SpringBootTest.WebEnvironment.NONE,
         value = "")
 @DirtiesContext
 public class FeignClientTests {
-
-    @Configuration
-    @EnableAutoConfiguration
-    @EnableFeignClients
-    public static class Application {
-        public static void main(String[] args) {
-            SpringApplication.run(Application.class, args);
-        }
-
-        @Bean
-        public okhttp3.OkHttpClient getOkHttpClient(){
-            ConnectionPool connectionPool = new ConnectionPool(100, 3L, TimeUnit.MINUTES);
-            okhttp3.OkHttpClient client = new okhttp3.OkHttpClient.Builder().connectionPool(connectionPool)
-                    .connectTimeout(1, TimeUnit.SECONDS)
-                    .readTimeout(1, TimeUnit.SECONDS)
-                    .build();
-            return client;
-        }
-
-    }
 
     @Autowired
     private GitHub github;

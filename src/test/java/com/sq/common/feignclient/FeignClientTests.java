@@ -54,6 +54,7 @@ public class FeignClientTests {
 
         }
     }
+
     @Test
     public void testGithub() {
         long start = System.currentTimeMillis();
@@ -61,6 +62,13 @@ public class FeignClientTests {
             System.out.println(contributor.login + " ---(" + contributor.contributions + ")");
         });
         System.out.println(System.currentTimeMillis() - start);
+    }
+
+    @Test
+    public void testGithubStr() {
+        long start = System.currentTimeMillis();
+        String result = github.contributors1("xiegang", "spring-boot-starter-feign");
+        System.out.println("result: "+ result);
     }
 
     @Test

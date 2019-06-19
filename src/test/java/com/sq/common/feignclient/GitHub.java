@@ -11,6 +11,9 @@ public interface GitHub {
     @RequestLine("GET /repos/{owner}/{repo}/contributors")
     List<Contributor> contributors(@Param("owner") String owner, @Param("repo") String repo);
 
+    @RequestLine("GET /repos/{owner}/{repo}/contributors")
+    String contributors1(@Param("owner") String owner, @Param("repo") String repo);
+
     class Contributor {
         String login;
         int contributions;

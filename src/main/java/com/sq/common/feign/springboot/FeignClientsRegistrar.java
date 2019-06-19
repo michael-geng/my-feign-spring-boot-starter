@@ -85,7 +85,8 @@ class FeignClientsRegistrar implements ImportBeanDefinitionRegistrar, ResourceLo
         definition.addPropertyValue("decode404", attributes.get("decode404"));
         definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 
-        String alias = annotationMetadata.getClass().getSimpleName() + "FeignClient";
+        //String alias = annotationMetadata.getClass().getSimpleName() + "FeignClient";
+        String alias = className.substring(className.lastIndexOf(".")+1, className.length()) + "FeignClient";
         String qualifier = getQualifier(attributes);
         if (StringUtils.hasText(qualifier)) {
             alias = qualifier;
